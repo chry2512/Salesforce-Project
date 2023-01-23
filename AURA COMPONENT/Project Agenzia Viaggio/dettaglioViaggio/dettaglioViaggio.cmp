@@ -1,0 +1,82 @@
+<!--
+  @description       : 
+  @author            : Christian Niro
+  @group             : 
+  @last modified on  : 10-19-2022
+  @last modified by  : 
+-->
+
+
+<aura:component controller="detailsTravel" implements="force:hasRecordId,force:appHostable,flexipage:availableForAllPageTypes" access="global">
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+  <aura:attribute name="vggListDisplay" type="Viaggio__c[]" />
+  <lightning:card variant="Narrow" title="Dettagli Viaggi" iconName="standard:account" >
+   <div style="margin: 20px; margin-right: 2px;">
+      <div class="slds-form-element">
+         <div class="slds-form-element__control">
+            <div class="slds-combobox_container">
+               <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
+                  <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                     <lightning:combobox aura:id="SobjectList" name="SobjectList" label="Select Travel"
+                       placeholder="Select Travel" onchange="{!c.getfields}"
+                      value=""/>
+                  </div>
+                  
+                </div>
+
+            </div>
+         </div> 
+      </div> 
+   </div>     
+                    
+                 
+              
+     <div style="margin: 20px; margin-right: 2px;">
+        <div class="slds-modal__content slds-p-around_x-small" style="max-height : 300px; max-width : 100 px; overflow-y:scroll;">
+           <div class="slds-grid slds-wrap">
+              <div class="slds-size_1-of-2 slds-p-around_medium">
+
+                     
+                 
+                 <table class="slds-table slds-table--bordered slds-table--cell-buffer">
+                    <thead>
+                       <tr>
+                          <th>Nome Località </th>
+                          <th>Periodo</th>
+                          <th>Prezzo</th>
+                          <th>Status</th>
+                          <th>Numero Prenotazioni</th>
+                          <th>Conferma ?</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                       <aura:iteration items="{!v.vggListDisplay}" var="vgg" indexVar="Join"  >
+                          <tr>
+                             <td>{!vgg.Name}</td>
+                             <td>{!vgg.Periodo__c}</td>
+                             <td>{!vgg.Prezzo__c}</td>
+                             <td>{!vgg.Status__c}</td>
+                             <td>{!vgg.Number_Of_Reservartion__c}/100</td>
+                             <td>
+                                <ui:outputCheckbox aura:id="{!vgg.Name}"  value="{!vgg.Select__c}" />
+                             </td>
+                          </tr>
+                       </aura:iteration>
+                    </tbody>
+                 </table>
+              </div>
+           </div>
+        </div>
+     </div>
+     <div style="margin: 20px; margin-right: 2px;">
+        <div class="slds-modal__content slds-p-around_x-small" style="max-height : 300px; max-width : 100 px; overflow-y:scroll;">
+           <div class="slds-grid slds-wrap">
+              <div class="slds-size_1-of-2 slds-p-around_medium">
+                 <lightning:button  variant="brand" label="PREVIOUS" title="PREVIOUS" name="Prova"  onclick="{!c.onClear }" />
+                 <lightning:button  variant="brand" label="NEXT" title="NEXT" name="Prova"  onclick="{!c.onClear }" />
+              </div>
+           </div>
+        </div>
+     </div>
+  </lightning:card>
+</aura:component>
