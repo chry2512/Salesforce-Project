@@ -16,7 +16,7 @@ public class QueueTravel implements Queueable{
 
     public void execute(QueueableContext context){
 
-        List<Viaggio__c> vgg = [SELECT Id, Name, Periodo__c, Prezzo__c, Status__c, ECU_Number_Of_Reservartion__c, Select__c
+        List<Viaggio__c> vgg = [SELECT Id, Name, Periodo__c, Prezzo__c, Status__c, Number_Of_Reservartion__c, Select__c
                                 FROM Viaggio__c];
 
         for (Viaggio__c v : vgg){
