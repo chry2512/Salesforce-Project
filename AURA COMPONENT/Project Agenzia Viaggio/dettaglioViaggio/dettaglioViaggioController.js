@@ -33,24 +33,70 @@
         // Send action off to be executed
         $A.enqueueAction(action);
     },
-    getfields: function(component, event, helper) { 
-       var action = component.get("c.getAllFields");
+
+    
+    
+ 
+    getTravel: function(component, event, helper) { 
+       var action = component.get("c.getAllTravel");
        var userObj=component.find("SobjectList").get("v.value");
+       
         action.setParams({
             "fld": userObj
         });
+        
+        var opts=[];
        
             
             action.setCallback(this, function(response){
                 var state = response.getState();
+                console.log(response.getReturnValue());
+
                 if(state == 'SUCCESS'){
+
+                    var allValues = response.getReturnValue();
+                    for (var i = 0; i < allValues.length; i++) {
+                        opts.push({
+                            class: "optionClass",
+                            label: allValues[i],
+                            value: allValues[i]
+                        });
+                    }
     
-                    component.set('v.vggListDisplay', response.getReturnValue());
+                   // component.set('v.vggListDisplay', response.getReturnValue());
+                   component.find("TravelList").set("v.options", opts);
     
+                }else{
+
+                    console.log("Failed with state: " + state);
+
                 }
             });
             $A.enqueueAction(action);
     },
+
+    getDetails: function(component, event, helper) { 
+        var action = component.get("c.getAllDetails");
+        var trvObj=component.find("TravelList").get("v.value");
+       
+         action.setParams({
+             "name": trvObj
+         });
+        
+             
+             action.setCallback(this, function(response){
+                 var state = response.getState();
+                 if(state == 'SUCCESS'){
+     
+                     component.set('v.vggListDisplay', response.getReturnValue());
+     
+                 }
+             });
+             $A.enqueueAction(action);
+    },
+
+
+    
 
     onClear : function(component, event, helper) {
         
