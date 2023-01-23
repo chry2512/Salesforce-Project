@@ -24,23 +24,53 @@ public class detailsTravel{
 
         return SobjectList;
     }
+    
+    @AuraEnabled
+    public static List<String> getAllTravel(String fld){
+        // List<String> fieldList = new List<String>();
+        List<String> SobjectList = new List<String>();
+
+        String query = 'SELECT Id, Name, Periodo__c, Prezzo__c, Status__c, ECU_Number_Of_Reservartion__c, Select__c  FROM ' + fld + ' LIMIT 10 ';
+
+        System.debug('query' + query);
+
+
+        List<Viaggio__c> vgg = Database.query(query);
+
+            for (Viaggio__c v : vgg){
+             String name = String.valueOf(v.Name);
+
+             SobjectList.add(name);
+             System.debug('Name : ' + name);
+            }
+        
+
+        return SobjectList;
+        
+    }
+    
 
     @AuraEnabled
-    public static List<String> getAllFields(String fld){
-        List<String> fieldList = new List<String>();
+    public static List<Viaggio__c> getAllDetails(String name){
 
-        Map<String, Schema.SObjectType> gd = Schema.getGlobalDescribe();
-        Schema.SObjectType sobjType = gd.get(fld);
-        Schema.DescribeSObjectResult describeResult = sobjType.getDescribe();
+        String finalQuery;
 
-        Map<String, Schema.SobjectField> fieldsMap = describeResult.fields.getMap();
+        String query = 'SELECT Id, Name, Periodo__c, Prezzo__c, Status__c, ECU_Number_Of_Reservartion__c, Select__c  FROM Viaggio__c ';
 
-        for (String str : fieldsMap.keySet()){
-            fieldList.add(fieldsMap.get(str).getDescribe().getLabel());
+        String condition = ' WHERE Name = ';
 
-        }
 
-        return fieldList;
+        finalQuery = query + condition + '\'' + name + '\'';
+
+
+        System.debug('query' + finalQuery);
+
+
+        List<Viaggio__c> vgg = Database.query(finalQuery);
+
+
+        return vgg;
+        
     }
 
 }
