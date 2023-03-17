@@ -1,0 +1,11 @@
+<!--
+  @description       : 
+  @author            : Christian Niro
+  @group             : 
+  @last modified on  : 01-24-2023
+  @last modified by  : 
+-->
+<aura:component implements="flexipage:availableForAllPageTypes">
+    <lightning:card title=" Ciao, sono il tuo assistente personale" iconName="custom:custom30"  />
+    <c:chatGPT name="chatGPT" />
+</aura:component>
