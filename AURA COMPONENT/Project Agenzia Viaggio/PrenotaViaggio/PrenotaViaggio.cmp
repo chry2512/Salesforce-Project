@@ -1,156 +1,75 @@
 <!--
-  @description       : 
-  @author            : Christian Niro
-  @group             : 
-  @last modified on  : 10-28-2022
-  @last modified by  : 
--->
+   @description       : 
+   @author            : Christian Niro
+   @group             : 
+   @last modified on  : 10-28-2022
+   @last modified by  : 
+   -->
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="CreateAccount" >
-    <aura:attribute name="AccountList" type="Account"  default="{'sobjectType':'Account',
-                                                                 'Name':'',
-                                                                 'AccountNumber':'',
-                                                                 'Phone':'',
-                                                                 'Website':'',
-                                                                 'BillingCity': '',
-                                                                 'Email_1__c' : ''
-                                                                }"/> 
-
-    <aura:attribute name="vggListDisplay" type="Viaggio__c[]" />
-   
-    
-    <aura:handler name="init" value="{! this}" action="{! c.VisualizerViaggi}" />
-       
-
-        <lightning:card title="Viaggi Disponibili" >
-            
-            <table class="slds-table slds-table--bordered slds-table--cell-buffer">
-                <thead>
-                    <tr>
-                        <th>Nome Località </th>
-                        <th>Periodo</th>
-                        <th>Prezzo</th>
-                        <th>Status</th>
-                        <th>Numero Prenotazioni</th>
-                        <th>Conferma ?</th>
-
-
-                        
-                    </tr>
-
-                   
-                </thead>
-
-                <tbody>
-                    <aura:iteration items="{!v.vggListDisplay}" var="vgg" indexVar="Join"  >
-
-                        <tr>
-                            
-                           
-
-                            <td>{!vgg.Name}</td>
-                            
-                            <td>{!vgg.Periodo__c}</td>
-
-                            <td>{!vgg.Prezzo__c}</td>
-
-                            <td>{!vgg.Status__c}</td>
-
-                            <td>{!vgg.ECU_Number_Of_Reservartion__c}/100</td>
-                            <td> 
-                                <ui:outputCheckbox aura:id="{!vgg.Name}"  value="{!vgg.Select__c}" />    
-                            </td> 
-
-
-                            
-
-                            
-                            
-                            
-
-                            <lightning:button aura:id="{vgg.Name}" variant="success" label="Join" title="JOIN" name="{!vgg.Name}"  onclick="{!c.onClear }" />
-                            
-                      
-                        </tr>
-
-                        
-                        
-
-                    </aura:iteration>
-                </tbody>
-
-            </table>
-
-           
-
-        </lightning:card>
-
-
-        <div style="height:25px; margin: 5px; margin-bottom:150px; margin-right : 1000px ;">
-
-            <lightning:card title="Prenota Viaggio">
-            
-                <div  style="margin: 20px; margin-right: 2px;">
-
-                    <div class="slds-modal__content slds-p-around_x-small" style="max-height : 500px; max-width : 500 px; overflow-y:scroll;">
-
-                        <div class="slds-grid slds-wrap"> 
-                            <div class="slds-size_1-of-2 slds-p-around_medium">
-                                
-
-                    
-                                <lightning:input name="accName"   label="Account Name"  required = "true" value="{! v.AccountList.Name}"/>
-                    
-                    
-                                <lightning:input name="accNumber"   label="Account Number" required = "true" value = "{! v.AccountList.AccountNumber}" />
-
-                                
-                                <lightning:input name="Phone"   label = " Phone" value= "{! v.AccountList.Phone}"/> 
-
-                                
-                                <lightning:input name="Website"   label= " Website" value="{! v.AccountList.Website}" />
-
-                                
-                                <lightning:input name="email"   label= " Email"  required = "true" value="{! v.AccountList.Email_1__c}" />
-
-                                
-                                <lightning:input name="city"   label= " City" value="{! v.AccountList.BillingCity}"/>
-
-                                
-                                
-
-                            </div>
-
-                           
-
-                            
-                         </div>
-
-                          
-                    </div>
-                </div>
-
-                <div style="margin: 20px; margin-right: 2px;">
-                    <div class="slds-modal__content slds-p-around_x-small" style="max-height : 300px; max-width : 100 px; overflow-y:scroll;"> 
-
-                        <div class="slds-grid slds-wrap">
-                            <div class="slds-size_1-of-2 slds-p-around_medium">
-
-                    
-
-                               <lightning:button variant="brand" label="Prenota Viaggio" title="Brand Action" onclick="{! c.CreateAccounts}"/> 
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                  
-                </div>
-                
-                 
-            
-            </lightning:card>
-
-        </div>
-
+   <aura:attribute name="AccountList" type="Account"  default="{'sobjectType':'Account',
+      'Name':'',
+      'AccountNumber':'',
+      'Phone':'',
+      'Website':'',
+      'BillingCity': '',
+      'Email_1__c' : ''
+      }"/>
+   <aura:attribute name="vggListDisplay" type="Viaggio__c[]" />
+   <aura:handler name="init" value="{! this}" action="{! c.VisualizerViaggi}" />
+   <lightning:card title="Viaggi Disponibili" >
+      <table class="slds-table slds-table--bordered slds-table--cell-buffer">
+         <thead>
+            <tr>
+               <th>Nome Località </th>
+               <th>Periodo</th>
+               <th>Prezzo</th>
+               <th>Status</th>
+               <th>Numero Prenotazioni</th>
+               <th>Conferma ?</th>
+            </tr>
+         </thead>
+         <tbody>
+            <aura:iteration items="{!v.vggListDisplay}" var="vgg" indexVar="Join"  >
+               <tr>
+                  <td>{!vgg.Name}</td>
+                  <td>{!vgg.Periodo__c}</td>
+                  <td>{!vgg.Prezzo__c}</td>
+                  <td>{!vgg.Status__c}</td>
+                  <td>{!vgg.ECU_Number_Of_Reservartion__c}/100</td>
+                  <td>
+                     <ui:outputCheckbox aura:id="{!vgg.Name}"  value="{!vgg.Select__c}" />
+                  </td>
+                  <lightning:button aura:id="{vgg.Name}" variant="success" label="Join" title="JOIN" name="{!vgg.Name}"  onclick="{!c.onClear }" />
+               </tr>
+            </aura:iteration>
+         </tbody>
+      </table>
+   </lightning:card>
+   <div style="height:25px; margin: 5px; margin-bottom:150px; margin-right : 1000px ;">
+      <lightning:card title="Prenota Viaggio">
+         <div  style="margin: 20px; margin-right: 2px;">
+            <div class="slds-modal__content slds-p-around_x-small" style="max-height : 500px; max-width : 500 px; overflow-y:scroll;">
+               <div class="slds-grid slds-wrap">
+                  <div class="slds-size_1-of-2 slds-p-around_medium">
+                     <lightning:input name="accName"   label="Account Name"  required = "true" value="{! v.AccountList.Name}"/>
+                     <lightning:input name="accNumber"   label="Account Number" required = "true" value = "{! v.AccountList.AccountNumber}" />
+                     <lightning:input name="Phone"   label = " Phone" value= "{! v.AccountList.Phone}"/>
+                     <lightning:input name="Website"   label= " Website" value="{! v.AccountList.Website}" />
+                     <lightning:input name="email"   label= " Email"  required = "true" value="{! v.AccountList.Email_1__c}" />
+                     <lightning:input name="city"   label= " City" value="{! v.AccountList.BillingCity}"/>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div style="margin: 20px; margin-right: 2px;">
+            <div class="slds-modal__content slds-p-around_x-small" style="max-height : 300px; max-width : 100 px; overflow-y:scroll;">
+               <div class="slds-grid slds-wrap">
+                  <div class="slds-size_1-of-2 slds-p-around_medium">
+                     <lightning:button variant="brand" label="Prenota Viaggio" title="Brand Action" onclick="{! c.CreateAccounts}"/>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </lightning:card>
+   </div>
 </aura:component>
