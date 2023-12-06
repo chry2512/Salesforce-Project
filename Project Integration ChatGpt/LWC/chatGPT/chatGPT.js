@@ -23,12 +23,12 @@ export default class ChatGPT extends LightningElement {
         if (event.keyCode === 13) {
           // Perform search when the Enter key is pressed
           this.searchTerm = event.target.value;
-          this.showSpinner = true
+          this.showSpinner = true;
           this.searchResults = [];
           getQueryData({searchString:this.searchTerm})
             .then(result=>{
 
-              this.showSpinner = false
+              this.showSpinner = false;
 
               let response = JSON.parse(JSON.stringify(JSON.parse(result)));
 
@@ -38,7 +38,7 @@ export default class ChatGPT extends LightningElement {
                 else if (response.choices[0].text) {
                     this.responseData = response.choices[0].text;
                     this.responseData = this.responseData.replace(/\n/g, "<br />");
-                    let tempScriptData = ''
+                    let tempScriptData = '';
                     tempScriptData = (response.choices[0].text.includes('<script>')) ? 'JS File: ' + response.choices[0].text.split('<script>')[1] : '';
                     tempScriptData = this.responseTextLWCJS.replace(/\n/g, "<br />");
                     this.responseData = this.responseData + this.responseTextLWCJS;
@@ -46,16 +46,16 @@ export default class ChatGPT extends LightningElement {
                     this.responseData.trim();
                 }
 
-             console.log('ss',JSON.stringify(responseData))
+             console.log('ss',JSON.stringify(responseData));
            })
 
            .catch(error=>{
-             this.showSpinner = false
-             console.log('error is '+error)
+             this.showSpinner = false;
+             console.log('error is '+error);
            })
           // Replace with a call to your search service
           if(this.searchResults.length > 0 ){
-            this.showSpace =false
+            this.showSpace =false;
           }
         }
       
